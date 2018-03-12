@@ -1,8 +1,8 @@
 # gst-filter
 Simple Python Gstreamer Plugin. Blur Filter
 
-git clone ...
+### How to run
 
-cd gst-filter
-
-python3 run.py
+    git clone https://github.com/jackersson/gst-filter.git
+    cd gst-filter
+    python3 run.py
