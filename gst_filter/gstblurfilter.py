@@ -7,12 +7,9 @@ gi.require_version('Gst', '1.0')
 gi.require_version('GstBase', '1.0')
 from gi.repository import Gst, GObject, GstBase
 
-# Gst.init(None)
-
 from .gst_hacks import map_gst_buffer, get_buffer_size
 from .cv_utils import gaussian_blur
 
-import skimage.io
 
 GST_BLUR_FILTER = 'gstblurfilter'
 
@@ -21,15 +18,15 @@ def _write(message, filename, mode):
     with open(filename, mode) as handle:
         handle.write(message) 
 
-
+# https://lazka.github.io/pgi-docs/GstBase-1.0/classes/BaseTransform.html
 class GstBlurFilter(GstBase.BaseTransform):
 
     CHANNELS = 3  # RGB 
 
-    __gstmetadata__ = ("GstBlurFilter",
-                       "gstblurfilter.py",
-                       "gst.Element blurs image buffer",
-                       "LifeStyleTransfer.com")
+    __gstmetadata__ = ("An example plugin of GstBlurFilter",
+                       "gst-filter/gstblurfilter.py",
+                       "gst.Element blurs image",
+                       "Taras at LifeStyleTransfer.com")
 
     __gsttemplates__ = (Gst.PadTemplate.new("src",
                                             Gst.PadDirection.SRC,
@@ -97,14 +94,17 @@ def register_by_name(plugin_name):
     
     # Parameters explanation
     # https://lazka.github.io/pgi-docs/Gst-1.0/classes/Plugin.html#Gst.Plugin.register_static
-    version, gstlicense = '12', 'LGPL'
-    origin = 'LifeStyleTransfer'
-    source, package = 'gstblurfilter.py', 'gstblurfilter'
+    name = plugin_name
     description = "gst.Element blurs image buffer"
+    version = '1.12.4'
+    gst_license = 'LGPL'
+    source_module = 'gstreamer'
+    package = 'gstblurfilter'
+    origin = 'lifestyletransfer.com'
     if not Gst.Plugin.register_static(Gst.VERSION_MAJOR, Gst.VERSION_MINOR,
-                                      plugin_name, description,
-                                      register, version, gstlicense,
-                                      source, package, origin):
+                                      name, description,
+                                      register, version, gst_license,
+                                      source_module, package, origin):
         raise ImportError("Plugin {} not registered".format(plugin_name)) 
     return True
 

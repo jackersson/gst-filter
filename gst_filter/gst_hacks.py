@@ -17,7 +17,7 @@ _GST_PADDING = 4  # From gstconfig.h
 class _GstMapInfo(Structure):
     _fields_ = [("memory", c_void_p),  # GstMemory *memory
                 ("flags", c_int),  # GstMapFlags flags
-                ("data", POINTER(c_byte)), # guint8 *data
+                ("data", POINTER(c_byte)),  # guint8 *data
                 ("size", c_size_t),  # gsize size
                 ("maxsize", c_size_t),  # gsize maxsize
                 ("user_data", c_void_p * 4),     # gpointer user_data[4]
@@ -78,10 +78,10 @@ def get_buffer_size(caps):
     """
 
     caps_struct = caps.get_structure(0)
-    (success, width) = caps_struct .get_int('width')
+    (success, width) = caps_struct.get_int('width')
     if not success:
         return False, (0, 0)
-    (success, height) = caps_struct .get_int('height')
+    (success, height) = caps_struct.get_int('height')
     if not success:
         return False, (0, 0)    
     return True, (width, height)
