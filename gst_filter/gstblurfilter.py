@@ -86,8 +86,7 @@ def register(plugin):
     type_to_register = GObject.type_register(GstBlurFilter)
 
     # https://lazka.github.io/pgi-docs/#Gst-1.0/classes/Element.html#Gst.Element.register
-    Gst.Element.register(plugin, GST_BLUR_FILTER, 0, type_to_register)       
-    return True
+    return Gst.Element.register(plugin, GST_BLUR_FILTER, 0, type_to_register)       
 
 
 def register_by_name(plugin_name):
